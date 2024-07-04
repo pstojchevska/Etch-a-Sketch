@@ -23,3 +23,11 @@ function createGrid(numSquares) {
     }
     container.style.width = "960px";
 }
+
+//function to darken the square progressively
+function darkenSquare(square) {
+    let opacity = parseFloat(square.style.opacity) || 0.1;
+    if (opacity < 1) {
+        square.style.opacity = opacity + 0.1;
+    }
+}
