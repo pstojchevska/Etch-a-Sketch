@@ -31,3 +31,16 @@ function darkenSquare(square) {
         square.style.opacity = opacity + 0.1;
     }
 }
+
+createGrid(16);
+
+//reset button functionality
+resetButton.addEventListener("click", function() {
+    let numSquares = prompt("Enter number of squares per side (max 100):");
+    numSquares = parseInt(numSquares);
+    if (numSquares && numSquares > 0 && numSquares <= 100) {
+        createGrid(newSquares);
+    } else {
+        alert("Please enter a valid number between 1 and 100.")
+    }
+})
