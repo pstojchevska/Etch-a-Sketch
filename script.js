@@ -1,15 +1,16 @@
 const container = document.getElementById('container');
 const resetButton = document.getElementById('reset-button');
 
-// Function to create the grid
+// function to create the grid
 function createGrid(numSquares) {
     // Clear existing grid
     container.innerHTML = '';
 
-    // Calculate square size
-    const squareSize = 960 / numSquares;
+    // calculate square size based on available space
+    const containerSize = Math.min(window.innerWidth * 0.80, window.innerHeight * 0.80); // 80% of viewport size
+    const squareSize = containerSize / numSquares;
 
-    // Create grid squares
+    // create grid squares
     for (let i = 0; i < numSquares * numSquares; i++) {
         const square = document.createElement('div');
         square.classList.add('square');
@@ -17,7 +18,7 @@ function createGrid(numSquares) {
         square.style.height = `${squareSize}px`;
         container.appendChild(square);
 
-        // Hover effect
+        // hover effect
         square.addEventListener('mouseover', function() {
             const randomColor = `rgb(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255})`;
             square.style.backgroundColor = randomColor;
@@ -25,11 +26,12 @@ function createGrid(numSquares) {
         });
     }
 
-    // Set container width explicitly
-    container.style.width = '960px';
+    // set container dimensions
+    container.style.width = `${containerSize}px`;
+    container.style.height = `${containerSize}px`;
 }
 
-// Function to darken the square progressively
+// function to darken the square progressively
 function darkenSquare(square) {
     let opacity = parseFloat(square.style.opacity) || 0.1;
     if (opacity < 1) {
@@ -37,10 +39,10 @@ function darkenSquare(square) {
     }
 }
 
-// Initial grid creation
+// initial grid creation
 createGrid(16);
 
-// Reset button functionality
+// reset button functionality
 resetButton.addEventListener('click', function() {
     let numSquares = prompt('Enter number of squares per side (max 100):');
     numSquares = parseInt(numSquares);
@@ -49,4 +51,9 @@ resetButton.addEventListener('click', function() {
     } else {
         alert('Please enter a valid number between 1 and 100.');
     }
+});
+
+// adjust grid on window resize
+window.addEventListener('resize', function() {
+    createGrid(document.querySelectorAll('.square').length ** 0.5);
 });
